@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Drawing</title>
+</head>
+<body>
+<canvas id="myCanvas" width="600" height="400"></canvas>
+
+<script>
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Starting point
+    let x = canvas.width / 2;
+    let y = canvas.height / 2;
+
+    ctx.moveTo(x, y);
+    ctx.strokeStyle = 'black';
+
+    function draw() {
+        // Draw multiple segments in each frame
+        for(let i = 0; i < 10; i++) {
+            // Random angle in radians
+            const angle = Math.random() * 2 * Math.PI;
+
+            // Increased length for the line (e.g., 20 pixels)
+            const length = Math.random() * 20;
+
+            x += Math.cos(angle) * length;
+            y += Math.sin(angle) * length;
+
+            // Check canvas boundaries
+            if(x < 0) x = 0;
+            if(x > canvas.width) x = canvas.width;
+            if(y < 0) y = 0;
+            if(y > canvas.height) y = canvas.height;
+
+            ctx.lineTo(x, y);
+            ctx.stroke();
+        }
+
+        // Set the delay for the next draw call (e.g., 100ms)
+        setTimeout(draw, 100);
+    }
+
+    // Initial call to start the drawing process
+    draw();
+</script>
+</body>
+</html>
